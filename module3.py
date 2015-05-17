@@ -19,10 +19,17 @@ csvData = csv.reader(fileOpen)
 dataList = list(csvData)
 dataArray =  numpy.array(dataList)
 
+print dataArray
+
 X = dataArray[:,2:32].astype(float)
+
+print X
 y = dataArray[:, 1]
+
+print y
+
 print("X Dimensions", X.shape)
-print("X Dimensions", y.shape)
+print("y Dimensions", y.shape)
 
 le = preprocessing.LabelEncoder()
 le.fit(y)
@@ -30,21 +37,23 @@ yTransformed = le.transform(y)
 
 yFreq = scipy.stats.itemfreq(y)
 
-# plt.bar(left = 0, height = int(yFreq[0][1]), color="c")
-# plt.bar(left = 1, height = int(yFreq[1][1]), color="m")
-# plt.xlabel("diagnosis")
-# plt.ylabel("frequency")
-# plt.legend(["B","M"])
+print yFreq
 
-# correlationMatrix = numpy.corrcoef(X, rowvar=0)
-# fig, ax = plt.subplots()
-# heatmap = ax.pcolor(correlationMatrix, cmap = plt.cm.coolwarm_r)
-# plt.show()
-#
-# plt.scatter(x = X[:,0], y = X[:,1], c=y)
-# plt.xlabel("radius")
-# plt.ylabel("texture")
-# plt.show()
+plt.bar(left = 0, height = int(yFreq[0][1]), color="c")
+plt.bar(left = 1, height = int(yFreq[1][1]), color="m")
+plt.xlabel("diagnosis")
+plt.ylabel("frequency")
+plt.legend(["B","M"])
+
+correlationMatrix = numpy.corrcoef(X, rowvar=0)
+fig, ax = plt.subplots()
+heatmap = ax.pcolor(correlationMatrix, cmap = plt.cm.coolwarm_r)
+plt.show()
+
+plt.scatter(x = X[:,0], y = X[:,1], c=y)
+plt.xlabel("radius")
+plt.ylabel("texture")
+plt.show()
 
 
 def scatter_plot(X,y):
