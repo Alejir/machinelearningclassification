@@ -23,4 +23,22 @@ le.fit(y)
 yTransformed = le.transform(y)
 XTrain, XTest, yTrain, yTest = train_test_split(X, yTransformed)
 
+nbmodel = GaussianNB().fit(X,yTransformed)
+
+yPred = nbmodel.predict(X)
+
+nonAgreementNB = yPred[yPred != yTransformed]
+
+print 'Number of discrepancies: ', len(nonAgreementNB)
+print 'accuracy Naive Bayes: ', metrics.accuracy_score(yTransformed,yPred)
+
+
+nbmodel = GaussianNB().fit(XTrain,yTrain)
+predicted = nbmodel.predict(XTest)
+mat = metrics.confusion_matrix(yTest,predicted)
+print mat
+
+print(metrics.classification_report(yTest,predicted))
+print(metrics.accuracy_score)
+
 
